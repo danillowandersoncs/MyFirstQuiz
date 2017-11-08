@@ -4,10 +4,9 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="visual.css">
 		<title>Quiz de Inglês</title>
-		
-		<script src="main.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-
+		<script src="main.js"></script>
 
 	</head>
 
@@ -16,19 +15,20 @@
 
 		<section class = "container">
 			<header>
-				<section class="esquerda"> How good is your english?</section>
-				<section class="direita">FCI - Mackenzie. </section>
+				<section class="esquerda"><b id="question"></b></section>
+				<section class="direita">How good is your english, <b id="name"></b>?</section>
 			</header>
 			<main>
 
-				<h2 id="status"></h2>
-
-				<div id ="text1"></div>
+				<h2 id="player"></h2>
+				<p id ="text1"></p>
 				<button id ="btn" onclick='check()'>Submit Answer</button>
-				<div id = "mensagem"></div>
+				<div id = "mensagem"></div><br>
+				<div></h3><a id="again" href="index.html"></a></div>
+				
 			</main>
 			<footer>
-				<section class="direita">Vamos lá <b id="name"></b></section>
+				<section class="direita">© 2017 Danillo, Inc.- FCI - Mackenzie.</section>
 				
 			</footer>
 

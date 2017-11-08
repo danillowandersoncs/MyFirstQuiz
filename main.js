@@ -1,4 +1,5 @@
-var start = 0, text1, status, question, choice, choices, chA, chB, chC, chD, correct = 0;
+var start = 0;
+correct = 0;
 var questions = [
     [ "Quais dessas palavras não é um falso cognato", "Actually","Fabric", "Borrow","Comic" ,"D"],
 	[ "Qual desses verbos não estão ligados ao olhar",
@@ -24,60 +25,84 @@ var questions = [
 ];
 
 var name=[prompt("What is your name?")];
+while (name=="null" || name == ""){
+	var name=[prompt("What is your name?")];
+}
+	
 
 function Id(x){
 	return document.getElementById(x);
 }
-function renderQuestion(){
-	Id("name").innerHTML=name;
-	text1 = Id("text1");
-	if(start >= questions.length){
-		text1.innerHTML = '<h2> Você acertou '+correct+' de '+questions.length+' perguntas</h2></h3><a href="index.html">Clique aqui e teste de novo!</a>';
-		Id("status").innerHTML = name;
 
-		Id("btn").style.display = 'none';
-		
+
+function renderQuestion(){
+		Id("name").innerHTML=name;
+		text1 = Id("text1");
+		if(start >= questions.length){
+			text1.innerHTML = '<h2> Você acertou '+correct+' de '+questions.length+' perguntas</h2>';
+			Id("player").innerHTML = name;
+			Id("btn").style.display = 'none';
+			$(document).ready(function(){
+				$("a").css({
+					"text-decoration":"none",
+					"background": "green",
+					"border": "none",
+					"border-radius": "0.31em",
+					"padding": "0.62em",
+					"color": "white",
+					"font-size": "1em",
+				});
+			});
+
+			$(document).ready(function(){
+				$("a").mouseenter(function(){
+					$(this).fadeTo("slow",0.4);
+				});
+				$("a").mouseleave(function(){
+					$(this).fadeTo("slow",1);
+				});
+			});		
 			
-		if (correct>=questions.length*0.7){
+			if (correct>=questions.length*0.7){
  			var mensagem = ["Excelente!"];
  			Id("mensagem").innerHTML=mensagem;
 
- 		} 
+ 			} 
  		
- 		else if (correct<questions.length*0.7 && correct>=questions.length*0.4){
- 			var mensagem = ["Você pode melhorar!"];
+ 			else if (correct<questions.length*0.7 && correct>=questions.length*0.4){
+ 			var mensagem = ["Você pode melhorar! <br>"];
  			Id("mensagem").innerHTML=mensagem;
 
- 		} 
+ 			} 
 
- 		else if (correct<questions.length*0.4){
- 			var mensagem = ["Você precisa praticar mais!"];
- 			Id("mensagem").innerHTML=mensagem;
- 		}
-
- 		
-
- 		start = 0;
-		correct = 0;
-
- 	
-		return false;
-	}
+ 			else if (correct<questions.length*0.4){
+ 			var mensagem = ["Você precisa praticar mais!<br>"];
+			Id("mensagem").innerHTML=mensagem;
+ 			}		
+			
+			Id("question").innerHTML = "Test finished! ";
+			Id("again").innerHTML='Clique aqui e teste de novo!<br>';
+ 			start = 0;
+			correct = 0; 	
+			return false;
+		}
 
 
-	Id("status").innerHTML = "Pergunta "+(start+1)+" de "+questions.length;
-	question = questions[start][0];
-	chA = questions[start][1];
-	chB = questions[start][2];
-	chC = questions[start][3];
-	chD = questions[start][4];
-	text1.innerHTML = "<h3>"+question+"</h3>";
-	text1.innerHTML += "<input type='radio' id= 'choices' name='choices' value='A'> "+chA+"<br>";
-	text1.innerHTML += "<input type='radio' id= 'choices' name='choices' value='B'> "+chB+"<br>";
-	text1.innerHTML += "<input type='radio' id= 'choices' name='choices' value='C'> "+chC+"<br>";
-	text1.innerHTML += "<input type='radio' id= 'choices' name='choices' value='D'> "+chD+"<br><br>";
-	
+		Id("question").innerHTML = "Pergunta "+(start+1)+" de "+questions.length;
+		question = questions[start][0];
+		chA = questions[start][1];
+		chB = questions[start][2];
+		chC = questions[start][3];
+		chD = questions[start][4];
+		text1.innerHTML = "<h3>"+question+"</h3>";
+		text1.innerHTML += "<input type='radio' id= 'choice1' name='choices' value='A'> "+chA+"<br>";
+		text1.innerHTML += "<input type='radio' id= 'choice2' name='choices' value='B'> "+chB+"<br>";
+		text1.innerHTML += "<input type='radio' id= 'choice3' name='choices' value='C'> "+chC+"<br>";
+		text1.innerHTML += "<input type='radio' id= 'choice4' name='choices' value='D'> "+chD+"<br><br>";	
+		
 }
+
+
 	
 function check(){
 	choices = document.getElementsByName("choices");
@@ -85,16 +110,11 @@ function check(){
 		if(choices[i].checked){
 			choice = choices[i].value;
 		}
-	}
-
-	
+	}	
 	if(choice == questions[start][5]){
 		correct++;
 		
 	}
-
-
-
 	start++;
 	renderQuestion();
 }
